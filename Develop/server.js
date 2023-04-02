@@ -1,7 +1,9 @@
 const express = require('express');
 const routes = require('./routes');
+const sequelize = require('./config/connection')
+
 require('dotenv').config()
-console.log(process.env)
+
 // import sequelize connection
 
 const app = express();
@@ -15,10 +17,7 @@ app.use(routes);
 sequelize.sync().then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 }).catch(err => {
-  console.log('there has been an error');
+  console.log('there has been an error', err);
 });
 
 // sync sequelize models to the database, then turn on the server
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}!`);
-})

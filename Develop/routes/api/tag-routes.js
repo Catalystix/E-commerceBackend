@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 
   try {
     const tagData = await Tag.findAll({
-      include: [{ model: ProductTag, model: Product }],
+      include: [{model: Product }],
     });
     res.status(200).json(tagData);
   } catch (err) {
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
   
     try {
       const tagData = await Tag.findByPk(req.params.id, {
-        include: [{ model: ProductTag, model: Product}],
+        include: [{model: Product}],
         // might not need the Category model above^^
       });
       if (!tagData) {
@@ -55,7 +55,7 @@ router.get('/', async (req, res) => {
   router.put('/:id', async (req, res) => {
     // update a category by its `id` value
     try {
-   const tagData = await tag.update(req.body ,{
+   const tagData = await Tag.update(req.body ,{
     where: {
       tag_id: req.params.id,
    },
@@ -74,10 +74,10 @@ router.get('/', async (req, res) => {
   router.delete('/:id', async (req, res) => {
     // delete a category by its `id` value
     try {
-    const tagData = await tag.destroy({
+    const tagData = await Tag.destroy({
       where: {
-        tag_id: req.body.id,
-        // id :req.params.id, ?? which one do i need catagory_id or id?
+        tag_id: req.params.id,
+        // id :req.params.id, ?? which one do i need category_id or id?
       },
     });
       if (!tagCategory) {
